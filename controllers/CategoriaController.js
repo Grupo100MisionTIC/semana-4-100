@@ -2,9 +2,11 @@ const db = require('../models');
 
 exports.list = async (req, res, next) => {
 
-    try {
+    try{
 
-        const categorias = await db.Categoria.findAll();
+        const categorias = await db.Categoria.findAll({
+            attributes: ["nombre", "descripcion"]
+        });
 
         if(categorias)
         {
@@ -55,23 +57,23 @@ exports.add = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
 
-        const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
+        /*const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
 
         if(categoria)
-        {
+        {*/
             const categoria = await db.Categoria.update({nombre: req.body.nombre, descripcion: req.body.descripcion}, {
                 where: {
                     id: req.body.id
                 }
             });
             res.status(200).json(categoria)
-        }
-        else
+        //}
+       /* else
         {
             res.status(404).send({
                 message: 'La categoría no existe.'
             })
-        }
+        }*/
         
     } catch (err) {
         res.status(500).send({
@@ -84,23 +86,23 @@ exports.update = async (req, res, next) => {
 exports.activate = async (req, res, next) => {
     try {
 
-        const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
+        /*const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
 
         if(categoria)
-        {
+        {*/
             const categoria = await db.Categoria.update({estado: 1}, {
                 where: {
                     id: req.body.id
                 }
             });
             res.status(200).json(categoria)
-        }
+        /*}
         else
         {
             res.status(404).send({
                 message: 'La categoría no existe.'
             })
-        }
+        }*/
         
     } catch (err) {
         res.status(500).send({
@@ -113,23 +115,23 @@ exports.activate = async (req, res, next) => {
 exports.deactivate = async (req, res, next) => {
     try {
 
-        const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
+        /*const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
 
         if(categoria)
-        {
+        {*/
             const categoria = await db.Categoria.update({estado: 0}, {
                 where: {
                     id: req.body.id
                 }
             });
             res.status(200).json(categoria)
-        }
+        /*}
         else
         {
             res.status(404).send({
                 message: 'La categoría no existe.'
             })
-        }
+        }*/
         
     } catch (err) {
         res.status(500).send({

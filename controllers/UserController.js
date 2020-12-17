@@ -43,7 +43,9 @@ exports.list = async (req, res, next) => {
 
     try {
 
-        const users = await db.Usuario.findAll();
+        const users = await db.Usuario.findAll({
+            attributes: ["nombre", "email", "rol"]
+        });
 
         if(users)
         {
