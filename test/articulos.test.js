@@ -22,7 +22,6 @@ describe('Articulos Endpoints', () => {
     it('listas de articulos', async() => {
         const res = await request(app)
             .get('/api/articulo/list')
-            .set('token', token)
         expect(res.statusCode).toEqual(200)
 
     })

@@ -66,7 +66,7 @@ exports.list = async (req, res, next) => {
     }
 }
 
-exports.register = async (req, res, next) => {
+exports.add = async (req, res, next) => {
 
     try {
 
@@ -97,23 +97,81 @@ exports.register = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
 
-        const usuario = await db.Usuario.findOne({where: {email: req.body.email}});
+        /*const usuario = await db.Usuario.findOne({where: {email: req.body.email}});
 
-        if(Usuario)
-        {
-            const Usuario = await db.Usuario.update({password: req.body.password, rol: req.body.rol, nombre: req.body.nombre}, {
+        if(usuario)
+        {*/
+            const usuario = await db.Usuario.update({password: req.body.password, rol: req.body.rol, nombre: req.body.nombre}, {
                 where: {
-                    email: req.body.email
+                    id: req.body.id
                 }
             });
-            res.status(200).json(Usuario)
-        }
+            res.status(200).json(usuario)
+        /*}
         else
         {
             res.status(404).send({
                 message: 'El usuario no existe.'
             })
-        }
+        }*/
+        
+    } catch (err) {
+        res.status(500).send({
+            message: 'Error ->'
+        })
+        next(err);
+    }
+}
+
+exports.activate = async (req, res, next) => {
+    try {
+
+        /*const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
+
+        if(categoria)
+        {*/
+            const usuario = await db.Usuario.update({estado: 1}, {
+                where: {
+                    id: req.body.id
+                }
+            });
+            res.status(200).json(usuario)
+        /*}
+        else
+        {
+            res.status(404).send({
+                message: 'La categoría no existe.'
+            })
+        }*/
+        
+    } catch (err) {
+        res.status(500).send({
+            message: 'Error ->'
+        })
+        next(err);
+    }
+}
+
+exports.deactivate = async (req, res, next) => {
+    try {
+
+        /*const categoria = await db.Categoria.findOne({where: {nombre: req.body.nombre}});
+
+        if(categoria)
+        {*/
+            const usuario = await db.Usuario.update({estado: 0}, {
+                where: {
+                    id: req.body.id
+                }
+            });
+            res.status(200).json(usuario)
+        /*}
+        else
+        {
+            res.status(404).send({
+                message: 'La categoría no existe.'
+            })
+        }*/
         
     } catch (err) {
         res.status(500).send({
